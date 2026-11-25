@@ -1,0 +1,27 @@
+# Ignore Python cache directories
+__pycache__/
+.pytest_cache/
+results/smoke/
+results/internal_validation/
+*.pyc
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.pdf
+!/paper/main.pdf
+!/paper/figures/*.pdf
+!/reproducibility/*.log
+texput.log
+
+# Retired local experiment outputs
+/results/paper_active_vs_patrol/
+/results/paper_compare_anova1*/
+/results_offline_*/
+/offline/

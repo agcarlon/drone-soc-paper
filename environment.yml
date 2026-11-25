@@ -1,0 +1,12 @@
+name: drone-soc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.13
+  - pip
+  - pip:
+      - matplotlib==3.11.0
+      - numpy==2.4.6
+      - pandas==3.0.3
+      - pytest==9.0.2
+      - scipy==1.18.0

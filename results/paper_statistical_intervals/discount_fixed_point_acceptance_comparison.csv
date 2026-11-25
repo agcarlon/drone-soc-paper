@@ -1,0 +1,3 @@
+status,n,diagnostic_stop_rate,success_5m_rate,median_final_error,median_final_trace_sigma,median_energy,median_travel_distance,median_runtime_sec,median_final_iterate_difference_linf,max_final_iterate_difference_linf
+accepted,100,1.0,0.94,0.9441643757188898,1.6794530425639067,21574.082739065678,2919.7086160097533,178.0886277705431,0.6928285951731861,0.7944660056075626
+rejected,0,nan,nan,nan,nan,nan,nan,nan,nan,nan

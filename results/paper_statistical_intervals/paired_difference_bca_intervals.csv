@@ -1,0 +1,5 @@
+metric,label,n_pairs,median_one_body_minus_pairwise,bca95_low,bca95_high,seeds_favoring_one_body,seeds_favoring_pairwise,ties,pairwise_better_error_and_energy,pairwise_better_error_only,pairwise_better_energy_only,one_body_better_error_and_energy
+final_error,Final error [m],100,1.5435358096942027,0.5926059511804337,1.987237269822125,33,67,0,,,,
+final_trace_sigma,tr(Sigma) [m^2],100,7.227556160841566,2.5768534441768947,12.7311483249171,24,76,0,,,,
+energy,Energy [m^2 s^-1],100,2954.216090938533,2555.249897835073,4083.008458963028,13,87,0,,,,
+joint_error_energy,Joint final error and energy,100,nan,nan,nan,4,58,38,58,9,29,4

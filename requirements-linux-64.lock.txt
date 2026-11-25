@@ -1,0 +1,17 @@
+# Pip packages for conda-linux-64.lock, including resolved pip dependencies.
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.68.0
+iniconfig==2.3.1
+kiwisolver==1.5.1
+matplotlib==3.11.0
+numpy==2.4.6
+pandas==3.0.3
+pillow==13.0.0
+pluggy==1.7.0
+pygments==2.21.0
+pyparsing==3.3.3
+pytest==9.0.2
+python-dateutil==4.0.0
+scipy==1.18.0
+tzdata==2026.6

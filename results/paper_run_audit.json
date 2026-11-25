@@ -1,0 +1,87 @@
+{
+  "metric_file_count": 1950,
+  "fixed_point_case_count": 1550,
+  "failed_fixed_point_case_count": 0,
+  "retry_case_count": 9,
+  "failed_fixed_point_cases": [],
+  "retry_cases": [
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_049/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 2,
+      "max_final_iterate_difference_linf": 0.646425639845172
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_079/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 1,
+      "max_final_iterate_difference_linf": 0.7113376482480885
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_000/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 1,
+      "max_final_iterate_difference_linf": 0.6141297573751261
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_098/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 2,
+      "max_final_iterate_difference_linf": 0.5800858773091504
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_043/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 1,
+      "max_final_iterate_difference_linf": 0.7083154837612122
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_027/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 3,
+      "max_final_iterate_difference_linf": 0.5824709408430396
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_089/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 2,
+      "max_final_iterate_difference_linf": 0.6263065123504912
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_093/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 1,
+      "max_final_iterate_difference_linf": 0.7832966954967677
+    },
+    {
+      "path": "paper_pairwise_discount_sweep/discount_0p100/seed_005/order2/metrics.json",
+      "failed_solve_count": 0,
+      "retry_solve_count": 1,
+      "max_final_iterate_difference_linf": 0.5765008725203061
+    }
+  ],
+  "invalid_metric_file_count": 0,
+  "invalid_metric_files": [],
+  "boundary_summary_by_method": {
+    "greedy_eig": {
+      "num_cases": 200,
+      "median_dwell_fraction": 0.0,
+      "max_dwell_fraction": 0.1905169951442445
+    },
+    "order1": {
+      "num_cases": 800,
+      "median_dwell_fraction": 0.0,
+      "max_dwell_fraction": 0.3936220847215612
+    },
+    "order2": {
+      "num_cases": 600,
+      "median_dwell_fraction": 0.0,
+      "max_dwell_fraction": 0.009895991113803898
+    },
+    "patrol": {
+      "num_cases": 200,
+      "median_dwell_fraction": 0.06649168853893263,
+      "max_dwell_fraction": 0.07561554805649294
+    }
+  }
+}

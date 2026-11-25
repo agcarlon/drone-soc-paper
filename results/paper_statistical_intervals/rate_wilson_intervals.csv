@@ -1,0 +1,42 @@
+experiment,group,metric,count,n,estimate,ci_low,ci_high
+baseline,"snr0=50, method=order1",success_rate,43,50,0.86,0.738135428014719,0.9304925473797714
+baseline,"snr0=50, method=greedy_eig",success_rate,45,50,0.9,0.7863950966521162,0.956524876008429
+baseline,"snr0=50, method=patrol",success_rate,23,50,0.46,0.3296943460178263,0.5960136567161192
+baseline,"snr0=100, method=order1",success_rate,49,50,0.98,0.8950431352816304,0.9964608319110235
+baseline,"snr0=100, method=greedy_eig",success_rate,47,50,0.94,0.8378265662912299,0.9793854036353695
+baseline,"snr0=100, method=patrol",success_rate,33,50,0.66,0.5215356854148285,0.7756323036493895
+baseline,"snr0=150, method=order1",success_rate,50,50,1.0,0.9286499658256813,1.0
+baseline,"snr0=150, method=greedy_eig",success_rate,50,50,1.0,0.9286499658256813,1.0
+baseline,"snr0=150, method=patrol",success_rate,40,50,0.8,0.6696262789551477,0.8875637005402612
+baseline,"snr0=200, method=order1",success_rate,50,50,1.0,0.9286499658256813,1.0
+baseline,"snr0=200, method=greedy_eig",success_rate,50,50,1.0,0.9286499658256813,1.0
+baseline,"snr0=200, method=patrol",success_rate,42,50,0.84,0.7148551903823401,0.9166267863791231
+pairwise_showcase,method=order1,stopped,85,100,0.85,0.7671626666784216,0.906940968088377
+pairwise_showcase,method=order1,success_2m,36,100,0.36,0.2727107459049014,0.45764780018837914
+pairwise_showcase,method=order1,success_5m,71,100,0.71,0.6146092505999207,0.7898529302601586
+pairwise_showcase,method=order2,stopped,99,100,0.99,0.9455124752390653,0.9982326134344526
+pairwise_showcase,method=order2,success_2m,69,100,0.69,0.5937376052204429,0.7722043679386762
+pairwise_showcase,method=order2,success_5m,93,100,0.93,0.8625032899347025,0.965681175635936
+discount_sweep,"r=0.1, method=order1",stopped,98,100,0.98,0.9299868370580063,0.9944981477650318
+discount_sweep,"r=0.1, method=order1",success_5m,93,100,0.93,0.8625032899347025,0.965681175635936
+discount_sweep,"r=0.1, method=order2",stopped,100,100,1.0,0.9630051925239981,0.9999999999999999
+discount_sweep,"r=0.1, method=order2",success_5m,94,100,0.94,0.8752303146877748,0.9722142547333433
+discount_sweep,"r=0.2, method=order1",stopped,97,100,0.97,0.915479219195973,0.9897456617765851
+discount_sweep,"r=0.2, method=order1",success_5m,76,100,0.76,0.6676748127670786,0.8330878873454004
+discount_sweep,"r=0.2, method=order2",stopped,100,100,1.0,0.9630051925239981,0.9999999999999999
+discount_sweep,"r=0.2, method=order2",success_5m,93,100,0.93,0.8625032899347025,0.965681175635936
+discount_sweep,"r=0.3, method=order1",stopped,85,100,0.85,0.7671626666784216,0.906940968088377
+discount_sweep,"r=0.3, method=order1",success_5m,71,100,0.71,0.6146092505999207,0.7898529302601586
+discount_sweep,"r=0.3, method=order2",stopped,99,100,0.99,0.9455124752390653,0.9982326134344526
+discount_sweep,"r=0.3, method=order2",success_5m,93,100,0.93,0.8625032899347025,0.965681175635936
+discount_sweep,"r=0.5, method=order1",stopped,73,100,0.73,0.6356769977376873,0.8073053908233518
+discount_sweep,"r=0.5, method=order1",success_5m,72,100,0.72,0.6251178763865427,0.7986044083240164
+discount_sweep,"r=0.5, method=order2",stopped,96,100,0.96,0.9016278276739262,0.984336949448152
+discount_sweep,"r=0.5, method=order2",success_5m,93,100,0.93,0.8625032899347025,0.965681175635936
+discount_sweep,"r=0.7, method=order1",stopped,13,100,0.13,0.07757093858414264,0.20980521894809878
+discount_sweep,"r=0.7, method=order1",success_5m,32,100,0.32,0.2366901081545688,0.4166280225367919
+discount_sweep,"r=0.7, method=order2",stopped,34,100,0.34,0.25461379497543,0.43722454341689065
+discount_sweep,"r=0.7, method=order2",success_5m,56,100,0.56,0.4622792771125631,0.6532813459903167
+scaling_M,M=2,stopped,48,50,0.96,0.8653966212204534,0.9889613473391734
+scaling_M,M=3,stopped,50,50,1.0,0.9286499658256813,1.0
+scaling_M,M=4,stopped,50,50,1.0,0.9286499658256813,1.0

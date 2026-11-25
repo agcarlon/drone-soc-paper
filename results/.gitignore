@@ -1,0 +1,14 @@
+# Exclude large per-seed binary simulation outputs
+run_results.npz
+
+# Per-run paper artifacts are distributed as Git LFS archives. Aggregate CSV
+# tables remain directly tracked so numerical changes stay reviewable.
+seed_*/
+fixed_point_diagnostics.json
+
+# Plotting outputs are regenerated into paper/figures when needed.
+*.png
+*.pdf
+
+# Exclude macOS metadata
+.DS_Store

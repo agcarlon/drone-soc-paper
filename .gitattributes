@@ -1,0 +1,2 @@
+artifacts/paper_results/*.tar.zst filter=lfs diff=lfs merge=lfs -text
+

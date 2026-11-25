@@ -1,0 +1,128 @@
+diff --git a/drone_soc.py b/drone_soc.py
+index 7ff0981..3610015 100644
+--- a/drone_soc.py
++++ b/drone_soc.py
+@@ -186,6 +186,7 @@ class ProblemSpec:
+     c4: float = 1.0
+     patrol: Optional[Callable[[np.ndarray, float], np.ndarray]] = None
+     collision: Optional["CollisionAvoidance"] = None
++    tau_col: float = 1.0  # seconds; runtime collision-gradient time scale
+ 
+     def __post_init__(self):
+         self.domain = np.asarray(self.domain, dtype=float)
+@@ -196,6 +197,8 @@ class ProblemSpec:
+             raise ValueError("ProblemSpec.wind must have shape (2,).")
+         if self.patrol is not None and not callable(self.patrol):
+             raise TypeError("ProblemSpec.patrol must be callable or None.")
++        if not np.isfinite(self.tau_col) or self.tau_col <= 0.0:
++            raise ValueError("ProblemSpec.tau_col must be finite and positive (seconds).")
+ 
+ 
+ @dataclass
+@@ -1078,6 +1081,7 @@ def _save_run_config(par: "Params", problem: "ProblemSpec", s: "DroneProblemStat
+         "c2": _to_serialisable(problem.c2),
+         "c3": _to_serialisable(problem.c3),
+         "c3_terminal": _to_serialisable(problem.c3_terminal),
++        "tau_col": _to_serialisable(problem.tau_col),
+         "c4": _to_serialisable(problem.c4),
+     }
+     zones = getattr(problem, "no_fly_zones", None)
+diff --git a/experiments/baseline_scenario.py b/experiments/baseline_scenario.py
+index 42deb9e..7672edb 100644
+--- a/experiments/baseline_scenario.py
++++ b/experiments/baseline_scenario.py
+@@ -70,7 +70,7 @@ class PatrolOnlyPlanner(ControlPlanner):
+         if (problem.collision is not None) and (problem.c3 > 0.0):
+             grads = compute_collision_gradients(s.drone_positions, problem.collision)
+             c_eff = problem.c1 + problem.c2
+-            controls = controls - (problem.c3 / c_eff) * grads
++            controls = controls - (problem.tau_col * problem.c3 / c_eff) * grads
+ 
+         norms = np.linalg.norm(controls, axis=1, keepdims=True) + 1e-12
+         controls = controls * np.minimum(1.0, par.v_max / norms)
+@@ -213,6 +213,7 @@ def make_baseline_case(
+         c1=1e-4,
+         c2=1e-4,
+         c3=1e-2,
++        tau_col=1.0,
+         c4=0.0,
+         patrol=patrol,
+         collision=collision,
+diff --git a/experiments/realistic_pairwise_showcase.py b/experiments/realistic_pairwise_showcase.py
+index 863c161..4482458 100644
+--- a/experiments/realistic_pairwise_showcase.py
++++ b/experiments/realistic_pairwise_showcase.py
+@@ -187,6 +187,7 @@ def make_realistic_pairwise_showcase(
+         c1=1e-4,
+         c2=1e-5,
+         c3=1e-2,
++        tau_col=1.0,
+         c4=1.8,
+         patrol=patrol,
+         collision=collision,
+diff --git a/finite_horizon.py b/finite_horizon.py
+index 637e72d..d561a29 100644
+--- a/finite_horizon.py
++++ b/finite_horizon.py
+@@ -208,7 +208,7 @@ class FiniteHorizonSingleDronePlanner(ControlPlanner):
+         if (problem.collision is not None) and (problem.c3 > 0.0):
+             grads = compute_collision_gradients(s.drone_positions, problem.collision)
+             c_eff = problem.c1 + problem.c2
+-            a = a - (problem.c3 / c_eff) * grads
++            a = a - (problem.tau_col * problem.c3 / c_eff) * grads
+         norms = np.linalg.norm(a, axis=1, keepdims=True) + 1e-12
+         a = a * np.minimum(1.0, par.v_max / norms)
+         return a
+diff --git a/greedy_eig.py b/greedy_eig.py
+index fd673ef..8c77b1a 100644
+--- a/greedy_eig.py
++++ b/greedy_eig.py
+@@ -297,7 +297,7 @@ class GreedyEIGPlanner(ControlPlanner):
+             grads = compute_collision_gradients(current_positions_now, problem.collision)
+             for i in range(num_drones):
+                 controls[i] = _clip_to_vmax(
+-                    controls[i] - (float(problem.c3) / c1c2) * grads[i],
++                    controls[i] - (float(problem.tau_col) * float(problem.c3) / c1c2) * grads[i],
+                     v_max,
+                 )
+ 
+diff --git a/infinite_horizon.py b/infinite_horizon.py
+index 24d2d71..cfc6c86 100644
+--- a/infinite_horizon.py
++++ b/infinite_horizon.py
+@@ -79,8 +79,9 @@ def _solve_infinite_hjb_nd_direction(
+     fp_solver: Optional[BaseFixedPointSolver] = None,
+ ) -> Tuple[Callable, np.ndarray, Tuple[np.ndarray, ...]]:
+     """
+-    Solve one discounted, periodic HJB cycle over a single measurement interval Δ,
+-    with an information-gain jump at the end of the interval.
++    Solve a discounted cycle surrogate on the fixed absolute-time interval ts.
++    Virtual cycles replay this interval's patrol waveform; real replanning
++    supplies the next interval. The interval need not be a patrol period.
+     """
+ 
+     # Spatial axes around current belief mean
+@@ -335,7 +336,7 @@ def _apply_runtime_collision_safeguard(
+     if (problem.collision is not None) and (problem.c3 > 0.0):
+         grads = compute_collision_gradients(s.drone_positions, problem.collision)
+         c_eff = problem.c1 + problem.c2
+-        a = a - (problem.c3 / c_eff) * grads
++        a = a - (problem.tau_col * problem.c3 / c_eff) * grads
+     norms = np.linalg.norm(a, axis=1, keepdims=True) + 1e-12
+     return a * np.minimum(1.0, par.v_max / norms)
+ 
+diff --git a/plotting/animate_online_execution.py b/plotting/animate_online_execution.py
+index 5696923..7a79ca3 100644
+--- a/plotting/animate_online_execution.py
++++ b/plotting/animate_online_execution.py
+@@ -133,8 +133,8 @@ def _feedback_field(
+ 
+     if problem.collision is not None and problem.c3 > 0.0:
+         collision_gradient = compute_collision_gradients(positions, problem.collision)[drone_index]
+-        ux -= problem.c3 * collision_gradient[0] / c_eff
+-        uy -= problem.c3 * collision_gradient[1] / c_eff
++        ux -= problem.tau_col * problem.c3 * collision_gradient[0] / c_eff
++        uy -= problem.tau_col * problem.c3 * collision_gradient[1] / c_eff
+ 
+     norm = np.sqrt(ux**2 + uy**2) + 1e-12
+     scale = np.minimum(1.0, par.v_max / norm)
