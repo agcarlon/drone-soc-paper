@@ -15,7 +15,7 @@ results/internal_validation/
 *.out
 *.synctex.gz
 *.pdf
-!/paper/main.pdf
+!/paper/published_paper.pdf
 !/paper/figures/*.pdf
 !/reproducibility/*.log
 texput.log
